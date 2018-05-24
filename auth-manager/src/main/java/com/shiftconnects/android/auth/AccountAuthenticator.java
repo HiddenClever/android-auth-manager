@@ -46,10 +46,16 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         mContext = context;
         mLoginClass = loginClass;
         mAuthenticationManager = authenticationManager;
+        if (DEBUG) {
+            Log.d(String.format(DEBUG_TAG, TAG), "AccountAuthenticator initialised");
+        }
     }
 
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType, String authTokenType, String[] requiredFeatures, Bundle options) throws NetworkErrorException {
+        if (DEBUG) {
+            Log.d(String.format(DEBUG_TAG, TAG), "Calling service.addAccount()");
+        }
         final Intent intent = new Intent(mContext, mLoginClass);
         intent.putExtra(AuthenticatorActivity.KEY_ACCOUNT_TYPE, accountType);
         intent.putExtra(AuthenticatorActivity.KEY_AUTHTOKEN_TYPE, authTokenType);

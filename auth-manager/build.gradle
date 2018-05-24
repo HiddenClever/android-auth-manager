@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.jfrog.bintray'
 
 version = "1.0.3"
 def siteUrl = 'https://github.com/shiftconnects/android-auth-manager'      // Homepage URL of the library
@@ -8,16 +8,16 @@ def gitUrl = 'https://github.com/shiftconnects/android-auth-manager.git'   // Gi
 def projectDesc = 'Handles much of the cruft needed in Android to interface with AccountManager and provides a mechanism for storing a user in your app within AccountManager and automatically refreshing an OAuth2 token when necessary.'
 group = "com.shiftconnects.android.auth"
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 27
         versionCode 1
         versionName version
     }
@@ -30,39 +30,39 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:21.0.3'
+    implementation 'com.android.support:support-annotations:27.1.1'
 }
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    def gpgPhrase = properties.getProperty("bintray.gpg.passphrase")
-
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = group
-        desc = projectDesc
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-
-        version {
-            vcsTag = version
-            gpg {
-                sign = true
-                passphrase = gpgPhrase
-            }
-            mavenCentralSync {
-                sync = true
-                user = properties.getProperty("oss.userToken")
-                password = properties.getProperty("oss.userTokenValue")
-                close = '1'
-            }
-        }
-    }
-}
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+//    def gpgPhrase = properties.getProperty("bintray.gpg.passphrase")
+//
+//    configurations = ['archives']
+//    pkg {
+//        repo = "maven"
+//        name = group
+//        desc = projectDesc
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = ["Apache-2.0"]
+//        publish = true
+//
+//        version {
+//            vcsTag = version
+//            gpg {
+//                sign = true
+//                passphrase = gpgPhrase
+//            }
+//            mavenCentralSync {
+//                sync = true
+//                user = properties.getProperty("oss.userToken")
+//                password = properties.getProperty("oss.userTokenValue")
+//                close = '1'
+//            }
+//        }
+//    }
+//}
 
 install {
     repositories.mavenInstaller {

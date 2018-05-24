@@ -158,6 +158,9 @@ public class AuthenticationManager implements AuthTokenCallback.Callbacks {
      */
     @Nullable
     public synchronized String getAuthToken(@NonNull Account account, @NonNull String authTokenType) {
+        if (DEBUG) {
+            Log.d(String.format(DEBUG_TAG, TAG), "getAuthToken() called");
+        }
         validateAccount(account);
         validateAccountName(account.name);
         validateAccountType(account.type);

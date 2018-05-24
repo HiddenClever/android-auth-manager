@@ -59,11 +59,20 @@ public class AuthTokenCallback implements AccountManagerCallback<Bundle> {
 
     @Override public void run(AccountManagerFuture<Bundle> future) {
         try {
+            if (DEBUG) {
+                Log.d(String.format(DEBUG_TAG, TAG), "Calling AuthTokenCallback.run()");
+            }
             final Bundle result = future.getResult();
             String authToken = result.getString(AccountManager.KEY_AUTHTOKEN);
+            if (DEBUG) {
+                Log.d(String.format(DEBUG_TAG, TAG), "authToken attached to account manager: " + authToken);
+            }
 
             // when adding an account it doesn't automatically get the token so try to get it explicitly
             if (TextUtils.isEmpty(authToken)) {
+                if (DEBUG) {
+                    Log.d(String.format(DEBUG_TAG, TAG), "AccountManager.KEY_AUTHTOKEN not set, re-getting");
+                }
                 authToken = getAuthTokenFromAccountManager(result.getString(AccountManager.KEY_ACCOUNT_NAME), result.getString(AccountManager.KEY_ACCOUNT_TYPE), mAuthTokenType);
             }
             if (!TextUtils.isEmpty(authToken)) {
